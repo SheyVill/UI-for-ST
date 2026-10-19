@@ -1,0 +1,1812 @@
+@import url('https://fonts.googleapis.com/css2?family=Jura:wght@300;400;500;600&family=Manrope:wght@300;400;500;600&family=Share+Tech+Mono&display=swap');
+
+:root {
+    --tr-black: #080808;
+    --tr-red: #b10f1f;
+    --tr-red-bright: #ed1b2f;
+    --tr-white: #f5f2ed;
+    --tr-muted: #85807c;
+    --tr-font-display: 'Jura', 'Manrope', sans-serif;
+    --tr-font-ui: 'Manrope', sans-serif;
+    --tr-font-mono: 'Share Tech Mono', monospace;
+}
+
+#tr-home {
+    --tr-pointer-x: 76%;
+    --tr-pointer-y: 48%;
+    position: fixed;
+    inset: 0;
+    z-index: 200000;
+    display: grid;
+    grid-template-rows: auto 1px 1fr auto;
+    min-height: 100vh;
+    min-height: 100dvh;
+    overflow: hidden;
+    padding: clamp(24px, 3.2vw, 52px) clamp(28px, 5vw, 88px);
+    color: var(--tr-white);
+    font-family: var(--tr-font-ui);
+    background: var(--tr-black);
+    isolation: isolate;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity 450ms ease, visibility 0s linear 450ms;
+}
+
+body.tr-home-open {
+    overflow: hidden !important;
+}
+
+body.tr-home-open #tr-home {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transition-delay: 0s;
+}
+
+.tr-atmosphere,
+.tr-atmosphere::before,
+.tr-atmosphere::after,
+.tr-backdrop,
+.tr-figure-focus,
+.tr-reveal {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    content: '';
+    pointer-events: none;
+}
+
+.tr-backdrop,
+.tr-figure-focus,
+.tr-reveal {
+    background-image: url('./assets/knight.png');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.tr-backdrop {
+    opacity: 0.78;
+    filter: blur(11px) brightness(0.62) saturate(0.82);
+    transform: scale(1.025);
+}
+
+.tr-figure-focus {
+    opacity: 0.76;
+    filter: blur(3px) brightness(0.78) contrast(1.06) saturate(0.92);
+    -webkit-mask-image: linear-gradient(90deg, transparent 0, rgba(0, 0, 0, 0.12) 42%, rgba(0, 0, 0, 0.72) 49%, #000 57%, #000 73%, rgba(0, 0, 0, 0.72) 81%, rgba(0, 0, 0, 0.12) 89%, transparent 100%);
+    mask-image: linear-gradient(90deg, transparent 0, rgba(0, 0, 0, 0.12) 42%, rgba(0, 0, 0, 0.72) 49%, #000 57%, #000 73%, rgba(0, 0, 0, 0.72) 81%, rgba(0, 0, 0, 0.12) 89%, transparent 100%);
+}
+
+.tr-reveal {
+    opacity: 0.94;
+    filter: blur(0.5px) brightness(0.88) contrast(1.08) saturate(0.96);
+    -webkit-mask-image: radial-gradient(circle 360px at var(--tr-pointer-x) var(--tr-pointer-y), #000 0 18%, rgba(0, 0, 0, 0.86) 36%, rgba(0, 0, 0, 0.5) 62%, rgba(0, 0, 0, 0.16) 84%, transparent 100%);
+    mask-image: radial-gradient(circle 360px at var(--tr-pointer-x) var(--tr-pointer-y), #000 0 18%, rgba(0, 0, 0, 0.86) 36%, rgba(0, 0, 0, 0.5) 62%, rgba(0, 0, 0, 0.16) 84%, transparent 100%);
+}
+
+/* Subtle horizontal horizon axis (from THE DISCOVERY reference) */
+.tr-atmosphere {
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0.22) 0%, transparent 30%, transparent 75%, rgba(0, 0, 0, 0.48) 100%);
+}
+
+.tr-atmosphere::before {
+    display: block;
+    top: 50%;
+    bottom: auto;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.14) 16%, rgba(237, 27, 47, 0.42) 50%, rgba(255, 255, 255, 0.14) 84%, transparent 100%);
+}
+
+.tr-atmosphere::after {
+    display: none;
+}
+
+.tr-home-header,
+.tr-home-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    font: 400 clamp(10px, 0.72vw, 12px)/1.2 var(--tr-font-mono);
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+}
+
+.tr-home-header {
+    padding-bottom: 16px;
+}
+
+/* FIONURE-style top horizontal website hyperlinks */
+.tr-site-topnav {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: clamp(10px, 1.6vw, 26px);
+}
+
+.tr-site-link {
+    position: relative;
+    display: inline-flex;
+    align-items: baseline;
+    gap: 6px;
+    padding: 6px 4px;
+    color: rgba(255, 255, 255, 0.72);
+    font: 500 11px/1 var(--tr-font-display);
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    background: transparent;
+    border: 0;
+    cursor: pointer;
+    transition: color 180ms ease, text-shadow 180ms ease;
+}
+
+.tr-site-link small {
+    color: var(--tr-red-bright);
+    font: 400 9px/1 var(--tr-font-mono);
+    letter-spacing: 0.1em;
+}
+
+.tr-site-link::after {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    height: 1px;
+    background: var(--tr-red-bright);
+    box-shadow: 0 0 8px var(--tr-red-bright);
+    transform: scaleX(0);
+    transform-origin: left center;
+    transition: transform 220ms cubic-bezier(0.16, 0.78, 0.2, 1);
+    content: '';
+}
+
+.tr-site-link:hover,
+.tr-site-link:focus-visible {
+    color: #ffffff;
+    text-shadow: 0 0 12px rgba(255, 255, 255, 0.45);
+    outline: none;
+}
+
+.tr-site-link:hover::after,
+.tr-site-link:focus-visible::after {
+    transform: scaleX(1);
+}
+
+.tr-kicker,
+.tr-status {
+    color: #ffffff;
+    text-shadow: 0 0 12px rgba(255, 255, 255, 0.25);
+}
+
+.tr-index,
+.tr-home-footer {
+    color: rgba(245, 242, 237, 0.82);
+}
+
+.tr-home-rule {
+    background: linear-gradient(90deg, var(--tr-red-bright) 0 64px, rgba(255, 255, 255, 0.18) 64px 100%);
+}
+
+/* Frameless Cyber Website Layout — Left Node Links, Center Hero, Right Directory */
+.tr-home-content {
+    position: relative;
+    display: grid;
+    grid-template-columns: minmax(250px, 310px) minmax(0, 1fr) minmax(260px, 320px);
+    align-items: center;
+    gap: clamp(24px, 3.5vw, 56px);
+    min-height: 0;
+    padding: 20px 0;
+}
+
+.tr-title-block {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-self: center;
+    width: 100%;
+    max-width: 100%;
+    text-align: center;
+    z-index: 2;
+}
+
+.tr-title-block::before {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    z-index: -1;
+    width: clamp(240px, 26vw, 410px);
+    aspect-ratio: 1;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    box-shadow: inset 0 0 50px rgba(237, 27, 47, 0.06);
+    transform: translate(-50%, -50%);
+    content: '';
+    pointer-events: none;
+}
+
+.tr-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    margin: 0 0 18px;
+    color: #ffffff;
+    font: 400 clamp(10px, 0.72vw, 12px)/1 var(--tr-font-mono);
+    letter-spacing: 0.34em;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.9);
+}
+
+.tr-eyebrow::before {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--tr-red-bright);
+    box-shadow: 0 0 12px var(--tr-red-bright);
+    content: '';
+}
+
+.tr-title-block h1 {
+    margin: 0;
+    min-height: 1.08em;
+    color: #ffffff;
+    font: 600 clamp(36px, 4.2vw, 76px)/1.02 var(--tr-font-display);
+    letter-spacing: 0.11em;
+    text-transform: uppercase;
+    text-shadow:
+        0 0 24px rgba(255, 255, 255, 0.28),
+        0 0 42px rgba(237, 27, 47, 0.35),
+        0 10px 28px rgba(0, 0, 0, 0.9);
+    white-space: nowrap;
+}
+
+.tr-subtitle {
+    max-width: 460px;
+    margin: 20px 0 0;
+    padding: 0;
+    color: rgba(255, 255, 255, 0.88);
+    font: 400 clamp(12px, 0.88vw, 14px)/1.6 var(--tr-font-ui);
+    letter-spacing: 0.08em;
+    text-shadow: 0 2px 12px rgba(0, 0, 0, 0.95);
+}
+
+/* 404 Reference style thin rectangular CTA buttons in center */
+.tr-hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 14px;
+    margin-top: 30px;
+}
+
+.tr-hero-cta {
+    padding: 13px 28px;
+    color: #ffffff;
+    font: 600 11px/1 var(--tr-font-display);
+    letter-spacing: 0.26em;
+    text-transform: uppercase;
+    background: rgba(237, 27, 47, 0.14);
+    border: 1px solid rgba(255, 255, 255, 0.65);
+    cursor: pointer;
+    transition: background 200ms ease, border-color 200ms ease, box-shadow 200ms ease, transform 200ms ease;
+}
+
+.tr-hero-cta:hover {
+    background: rgba(237, 27, 47, 0.32);
+    border-color: var(--tr-red-bright);
+    box-shadow: 0 0 24px rgba(237, 27, 47, 0.4);
+    transform: translateY(-2px);
+}
+
+.tr-hero-cta-ghost {
+    background: rgba(8, 8, 10, 0.45);
+    border-color: rgba(255, 255, 255, 0.28);
+}
+
+/* Left & Right Frameless Vector Wings (NO outer box container!) */
+.tr-wing {
+    position: relative;
+    z-index: 5;
+}
+
+.tr-wing-left {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding-left: 24px;
+}
+
+.tr-wing-right {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding-right: 24px;
+}
+
+/* Cyber vector node line along Left & Right Wings (THE DISCOVERY reference) */
+.tr-wing-rail {
+    position: absolute;
+    top: -12px;
+    bottom: -12px;
+    left: 0;
+    width: 1px;
+    background: linear-gradient(180deg, transparent, rgba(255, 255, 255, 0.65) 20%, var(--tr-red-bright) 50%, rgba(255, 255, 255, 0.65) 80%, transparent);
+    box-shadow: 0 0 10px rgba(237, 27, 47, 0.35);
+}
+
+.tr-wing-rail-right {
+    left: auto;
+    right: 0;
+}
+
+.tr-wing-rail::before {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 9px;
+    height: 9px;
+    background: #080808;
+    border: 2px solid #ffffff;
+    border-radius: 50%;
+    box-shadow: 0 0 10px #ffffff, 0 0 16px var(--tr-red-bright);
+    transform: translate(-50%, -50%);
+    content: '';
+}
+
+.tr-wing-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 0 4px;
+    color: rgba(255, 255, 255, 0.72);
+    font: 400 10px/1 var(--tr-font-mono);
+    letter-spacing: 0.28em;
+}
+
+.tr-wing-header-right {
+    justify-content: flex-end;
+    text-align: right;
+}
+
+.tr-wing-dot {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--tr-red-bright);
+    box-shadow: 0 0 10px var(--tr-red-bright);
+}
+
+/* Frameless menu list — NO outer gray box! Capsule appears only on hover */
+.tr-menu {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+    width: 100%;
+    padding: 0;
+    background: transparent;
+    border: 0;
+    box-shadow: none;
+    backdrop-filter: none;
+}
+
+.tr-menu-item {
+    position: relative;
+    display: grid;
+    grid-template-columns: 32px 1fr;
+    align-items: center;
+    min-height: 50px;
+    margin: 0;
+    padding: 0 22px 0 18px;
+    color: #ffffff;
+    text-align: left;
+    background: transparent;
+    border: 1px solid transparent;
+    border-radius: 999px;
+    cursor: pointer;
+    transition: color 200ms ease, background 220ms ease, border-color 220ms ease, box-shadow 220ms ease, transform 220ms ease;
+}
+
+/* Glowing left indicator bar like Iconsax/Rabbits reference */
+.tr-menu-item::before {
+    position: absolute;
+    top: 50%;
+    left: -24px;
+    width: 3px;
+    height: 0;
+    background: var(--tr-red-bright);
+    border-radius: 999px;
+    box-shadow: 0 0 12px var(--tr-red-bright), 0 0 20px rgba(237, 27, 47, 0.85);
+    content: '';
+    transform: translateY(-50%);
+    transition: height 240ms cubic-bezier(0.16, 0.78, 0.2, 1), opacity 200ms ease;
+    opacity: 0;
+}
+
+.tr-menu-item::after {
+    display: none;
+}
+
+.tr-menu-item small {
+    color: var(--tr-red-bright);
+    font: 400 11px/1 var(--tr-font-mono);
+    letter-spacing: 0.14em;
+    transition: color 200ms ease;
+}
+
+.tr-menu-label {
+    display: flex;
+    color: #ffffff;
+    font: 600 clamp(14px, 1.05vw, 16px)/1 var(--tr-font-display);
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    text-shadow: 0 2px 12px rgba(0, 0, 0, 0.9);
+}
+
+.tr-menu-letter {
+    display: inline-block;
+    transition: color 180ms ease, text-shadow 180ms ease, transform 220ms ease;
+    transition-delay: calc(var(--tr-letter-index) * 12ms);
+}
+
+.tr-menu-space {
+    width: 0.38em;
+}
+
+/* Iconsax Pill Glow ONLY when hovered/focused */
+.tr-menu-item:hover,
+.tr-menu-item:focus-visible {
+    color: #ffffff;
+    background:
+        radial-gradient(circle at 16% 50%, rgba(237, 27, 47, 0.34), transparent 64%),
+        rgba(14, 12, 16, 0.72);
+    border-color: rgba(237, 27, 47, 0.75);
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.2),
+        0 10px 28px rgba(0, 0, 0, 0.55),
+        0 0 22px rgba(237, 27, 47, 0.25);
+    backdrop-filter: blur(16px);
+    transform: translateX(4px);
+    outline: none;
+}
+
+.tr-menu-item:hover::before,
+.tr-menu-item:focus-visible::before {
+    height: 24px;
+    opacity: 1;
+}
+
+.tr-menu-item:hover small,
+.tr-menu-item:focus-visible small {
+    color: #ffffff;
+}
+
+.tr-menu-item:hover .tr-menu-letter,
+.tr-menu-item:focus-visible .tr-menu-letter {
+    color: #ffffff;
+    text-shadow: 0 0 14px rgba(237, 27, 47, 0.75);
+}
+
+/* Right Wing: Frameless Website Page Hyperlinks */
+.tr-node-list {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.tr-node-link {
+    position: relative;
+    display: grid;
+    grid-template-columns: 28px 1fr auto;
+    align-items: center;
+    gap: 10px;
+    min-height: 46px;
+    padding: 0 18px;
+    color: #ffffff;
+    text-align: left;
+    background: transparent;
+    border: 1px solid transparent;
+    border-radius: 999px;
+    cursor: pointer;
+    transition: background 200ms ease, border-color 200ms ease, box-shadow 200ms ease, transform 200ms ease;
+}
+
+.tr-node-link small {
+    color: var(--tr-red-bright);
+    font: 400 10px/1 var(--tr-font-mono);
+    letter-spacing: 0.14em;
+}
+
+.tr-node-label {
+    color: #ffffff;
+    font: 500 13px/1.15 var(--tr-font-display);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.9);
+}
+
+.tr-node-link i {
+    color: rgba(255, 255, 255, 0.42);
+    font-size: 11px;
+    transition: color 200ms ease, transform 200ms ease;
+}
+
+.tr-node-link:hover,
+.tr-node-link:focus-visible {
+    background:
+        radial-gradient(circle at 16% 50%, rgba(237, 27, 47, 0.3), transparent 64%),
+        rgba(14, 12, 16, 0.72);
+    border-color: rgba(237, 27, 47, 0.72);
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.18),
+        0 10px 26px rgba(0, 0, 0, 0.5),
+        0 0 20px rgba(237, 27, 47, 0.22);
+    backdrop-filter: blur(16px);
+    transform: translateX(-4px);
+    outline: none;
+}
+
+.tr-node-link:hover i,
+.tr-node-link:focus-visible i {
+    color: var(--tr-red-bright);
+    transform: translate(2px, -2px);
+}
+
+.tr-home-footer {
+    padding-top: 18px;
+}
+
+.tr-status i {
+    display: inline-block;
+    width: 5px;
+    height: 5px;
+    margin-right: 10px;
+    background: var(--tr-red-bright);
+    border-radius: 50%;
+    box-shadow: 0 0 10px var(--tr-red-bright);
+    animation: tr-status-pulse 1.8s ease-in-out infinite;
+}
+
+/* Iconsax circular double-ring glass Home orb (Photo 1) */
+#tr-home-button {
+    position: fixed;
+    top: 16px;
+    left: 16px;
+    z-index: 120000;
+    display: grid;
+    place-items: center;
+    width: 44px;
+    height: 44px;
+    padding: 0;
+    color: var(--tr-white);
+    background: radial-gradient(circle at 35% 30%, rgba(34, 30, 34, 0.85), rgba(10, 9, 12, 0.92));
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    box-shadow:
+        0 12px 30px rgba(0, 0, 0, 0.55),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    cursor: pointer;
+    transition: border-color 220ms ease, box-shadow 220ms ease, transform 220ms ease;
+}
+
+#tr-home-button::before {
+    position: absolute;
+    inset: 5px;
+    border-radius: 50%;
+    border: 1px solid rgba(237, 27, 47, 0.42);
+    box-shadow: inset 0 0 10px rgba(237, 27, 47, 0.18), 0 0 10px rgba(237, 27, 47, 0.15);
+    content: '';
+    pointer-events: none;
+    transition: border-color 220ms ease, box-shadow 220ms ease;
+}
+
+.tr-home-glyph {
+    width: 17px;
+    height: 17px;
+    opacity: 0.88;
+    transition: transform 220ms ease, opacity 220ms ease, filter 220ms ease;
+}
+
+#tr-home-button:hover {
+    border-color: rgba(237, 27, 47, 0.48);
+    box-shadow:
+        0 14px 34px rgba(0, 0, 0, 0.68),
+        0 0 20px rgba(237, 27, 47, 0.22),
+        inset 0 1px 0 rgba(255, 255, 255, 0.16);
+    transform: translateY(-1px);
+}
+
+#tr-home-button:hover::before {
+    border-color: rgba(237, 27, 47, 0.85);
+    box-shadow: inset 0 0 14px rgba(237, 27, 47, 0.35), 0 0 14px rgba(237, 27, 47, 0.38);
+}
+
+#tr-home-button:hover .tr-home-glyph {
+    opacity: 1;
+    filter: drop-shadow(0 0 6px rgba(237, 27, 47, 0.6));
+}
+
+body.tr-home-open #tr-home-button {
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* Main chat screen: ONLY keep Preset toggle (#ai-config-button) visible on the left; hide the other 8 icons */
+body:not(.tr-home-open) #top-settings-holder {
+    position: fixed !important;
+    top: 70px !important;
+    right: auto !important;
+    bottom: auto !important;
+    left: 16px !important;
+    z-index: 150000 !important;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 0;
+    width: 44px !important;
+    height: auto !important;
+    margin: 0 !important;
+    padding: 0;
+    background: transparent;
+    border: 0;
+    box-shadow: none;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    overflow: visible;
+    pointer-events: none;
+}
+
+body:not(.tr-home-open) #top-settings-holder > .drawer {
+    display: block;
+    width: 0;
+    height: 0;
+    pointer-events: auto;
+}
+
+body:not(.tr-home-open) #top-settings-holder > .drawer:not(#ai-config-button) > .drawer-toggle {
+    display: none !important;
+}
+
+body:not(.tr-home-open) #top-settings-holder > #ai-config-button {
+    width: 44px;
+    height: 44px;
+}
+
+body:not(.tr-home-open) #top-settings-holder > #ai-config-button > .drawer-toggle {
+    position: relative;
+    display: grid;
+    place-items: center;
+    box-sizing: border-box;
+    width: 44px;
+    height: 44px;
+    min-height: 44px;
+    margin: 0;
+    padding: 0;
+    color: rgba(245, 242, 237, 0.78);
+    background: radial-gradient(circle at 35% 30%, rgba(34, 30, 34, 0.85), rgba(10, 9, 12, 0.92));
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    box-shadow:
+        0 12px 30px rgba(0, 0, 0, 0.55),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    cursor: pointer;
+    transition: color 200ms ease, border-color 200ms ease, background 200ms ease, box-shadow 200ms ease, transform 200ms ease;
+}
+
+body:not(.tr-home-open) #top-settings-holder > #ai-config-button > .drawer-toggle::before {
+    position: absolute;
+    inset: 5px;
+    border-radius: 50%;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    content: '';
+    pointer-events: none;
+    transition: border-color 200ms ease, box-shadow 200ms ease;
+}
+
+/* Glowing left indicator bar when Preset drawer is open or hovered */
+body:not(.tr-home-open) #top-settings-holder > #ai-config-button > .drawer-toggle::after {
+    position: absolute;
+    top: 50%;
+    left: -8px;
+    width: 3px;
+    height: 0;
+    background: var(--tr-red-bright);
+    border-radius: 999px;
+    box-shadow: 0 0 10px var(--tr-red-bright);
+    content: '';
+    transform: translateY(-50%);
+    opacity: 0;
+    transition: height 200ms ease, opacity 200ms ease;
+}
+
+body:not(.tr-home-open) #top-settings-holder > #ai-config-button > .drawer-toggle:hover,
+body:not(.tr-home-open) #top-settings-holder > #ai-config-button > .drawer-toggle:focus-within,
+body:not(.tr-home-open) #top-settings-holder > #ai-config-button:has(.drawer-content.openDrawer) > .drawer-toggle {
+    color: var(--tr-white);
+    border-color: rgba(237, 27, 47, 0.52);
+    box-shadow:
+        0 14px 34px rgba(0, 0, 0, 0.68),
+        0 0 20px rgba(237, 27, 47, 0.2),
+        inset 0 1px 0 rgba(255, 255, 255, 0.14);
+}
+
+body:not(.tr-home-open) #top-settings-holder > #ai-config-button > .drawer-toggle:hover::before,
+body:not(.tr-home-open) #top-settings-holder > #ai-config-button:has(.drawer-content.openDrawer) > .drawer-toggle::before {
+    border-color: rgba(237, 27, 47, 0.78);
+    box-shadow: inset 0 0 12px rgba(237, 27, 47, 0.28), 0 0 12px rgba(237, 27, 47, 0.28);
+}
+
+body:not(.tr-home-open) #top-settings-holder > #ai-config-button:has(.drawer-content.openDrawer) > .drawer-toggle::after {
+    height: 18px;
+    opacity: 1;
+}
+
+body:not(.tr-home-open) #top-settings-holder .drawer-icon {
+    display: grid;
+    place-items: center;
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    color: inherit;
+    font-size: 14px;
+    opacity: 0.85;
+    filter: none;
+    text-shadow: none;
+}
+
+body:not(.tr-home-open) #top-settings-holder .drawer-icon:hover,
+body:not(.tr-home-open) #top-settings-holder .drawer-icon.openIcon {
+    color: inherit;
+    opacity: 1;
+    text-shadow: 0 0 8px rgba(237, 27, 47, 0.55);
+}
+
+body:not(.tr-home-open) #top-settings-holder > .drawer > .drawer-content {
+    position: fixed;
+    transition: none !important;
+}
+
+body:not(.tr-home-open) #top-settings-holder > .drawer > .drawer-content.closedDrawer {
+    display: none !important;
+    width: 0 !important;
+    height: 0 !important;
+    min-width: 0 !important;
+    min-height: 0 !important;
+    max-width: 0 !important;
+    max-height: 0 !important;
+    padding: 0 !important;
+    overflow: hidden !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+}
+
+/* Opaque full-viewport canvas when any site subpage is open — prevents chat/RPG Companion from ever flashing through */
+body.tr-page-open::after {
+    position: fixed;
+    inset: 0;
+    z-index: 149990;
+    background: #070709;
+    content: '';
+    pointer-events: auto;
+}
+
+/* Fullscreen Website Subpages Header Bar (#tr-page-bar) */
+#tr-page-bar {
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    z-index: 150010;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    height: 76px;
+    padding: 0 clamp(24px, 4vw, 64px);
+    box-sizing: border-box;
+    color: #ffffff;
+    font-family: var(--tr-font-ui);
+    background: linear-gradient(180deg, rgba(6, 6, 8, 0.99), rgba(10, 9, 12, 0.98));
+    border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.7);
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transform: translateY(-10px);
+    transition: opacity 220ms ease, transform 220ms ease, visibility 0s linear 220ms;
+}
+
+#tr-page-bar::after {
+    position: absolute;
+    bottom: -1px;
+    left: clamp(24px, 4vw, 64px);
+    width: 84px;
+    height: 2px;
+    background: var(--tr-red-bright);
+    box-shadow: 0 0 12px var(--tr-red-bright);
+    content: '';
+}
+
+body.tr-page-open:not(.tr-home-open) #tr-page-bar,
+body:not(.tr-home-open):has(#top-settings-holder > .drawer:not(#ai-config-button) > .drawer-content.openDrawer) #tr-page-bar {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transform: translateY(0);
+    transition-delay: 0s;
+}
+
+body.tr-page-open:not(.tr-home-open) #tr-home-button,
+body.tr-page-open:not(.tr-home-open) #top-settings-holder > #ai-config-button > .drawer-toggle,
+body:not(.tr-home-open):has(#top-settings-holder > .drawer:not(#ai-config-button) > .drawer-content.openDrawer) #tr-home-button,
+body:not(.tr-home-open):has(#top-settings-holder > .drawer:not(#ai-config-button) > .drawer-content.openDrawer) #top-settings-holder > #ai-config-button > .drawer-toggle {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.tr-page-bar-left {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+}
+
+/* 404 Reference style BACK HOME rectangular framed button */
+.tr-back-home-btn,
+.tr-to-chat-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    height: 38px;
+    padding: 0 18px;
+    color: #ffffff;
+    font: 600 11px/1 var(--tr-font-display);
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.45);
+    cursor: pointer;
+    transition: background 180ms ease, border-color 180ms ease, box-shadow 180ms ease, transform 180ms ease;
+}
+
+.tr-back-home-btn:hover,
+.tr-to-chat-btn:hover {
+    background: rgba(237, 27, 47, 0.22);
+    border-color: var(--tr-red-bright);
+    box-shadow: 0 0 18px rgba(237, 27, 47, 0.35);
+    transform: translateY(-1px);
+}
+
+.tr-page-heading {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    padding-left: 20px;
+    border-left: 1px solid rgba(255, 255, 255, 0.16);
+}
+
+.tr-page-code {
+    color: var(--tr-red-bright);
+    font: 400 9px/1 var(--tr-font-mono);
+    letter-spacing: 0.24em;
+}
+
+.tr-page-title {
+    color: #ffffff;
+    font: 600 16px/1.15 var(--tr-font-display);
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+}
+
+.tr-page-sub {
+    display: none;
+}
+
+.tr-page-bar-nav {
+    display: flex;
+    align-items: center;
+    gap: clamp(6px, 1.1vw, 18px);
+    overflow-x: auto;
+    scrollbar-width: none;
+}
+
+.tr-page-bar-nav::-webkit-scrollbar {
+    display: none;
+}
+
+.tr-page-nav-link {
+    position: relative;
+    display: inline-flex;
+    align-items: baseline;
+    gap: 5px;
+    padding: 8px 10px;
+    color: rgba(255, 255, 255, 0.62);
+    font: 500 11px/1 var(--tr-font-display);
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    white-space: nowrap;
+    background: transparent;
+    border: 1px solid transparent;
+    border-radius: 999px;
+    cursor: pointer;
+    transition: color 180ms ease, background 180ms ease, border-color 180ms ease, box-shadow 180ms ease;
+}
+
+.tr-page-nav-link small {
+    color: var(--tr-red-bright);
+    font: 400 9px/1 var(--tr-font-mono);
+}
+
+.tr-page-nav-link:hover,
+.tr-page-nav-link.is-active {
+    color: #ffffff;
+    background:
+        radial-gradient(circle at 20% 50%, rgba(237, 27, 47, 0.28), transparent 70%),
+        rgba(255, 255, 255, 0.05);
+    border-color: rgba(237, 27, 47, 0.65);
+    box-shadow: 0 0 16px rgba(237, 27, 47, 0.2);
+}
+
+/* Side-docked ergonomic Preset Panel (#left-nav-panel) — doesn't blur or cover the center chat */
+body:not(.tr-home-open) #top-settings-holder > #ai-config-button > #left-nav-panel.openDrawer {
+    position: fixed !important;
+    top: 14px !important;
+    right: auto !important;
+    bottom: 14px !important;
+    left: 72px !important;
+    z-index: 4005 !important;
+    display: block !important;
+    box-sizing: border-box;
+    width: clamp(360px, 30vw, 460px) !important;
+    min-width: 320px !important;
+    max-width: calc(100dvw - 88px) !important;
+    height: calc(100dvh - 28px) !important;
+    max-height: calc(100dvh - 28px) !important;
+    margin: 0 !important;
+    padding: 20px 18px !important;
+    color: var(--tr-white) !important;
+    background: linear-gradient(160deg, rgba(16, 13, 16, 0.92), rgba(8, 8, 10, 0.95)) !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    border-left: 2px solid rgba(237, 27, 47, 0.72) !important;
+    border-radius: 24px !important;
+    box-shadow:
+        0 28px 70px rgba(0, 0, 0, 0.75),
+        0 0 28px rgba(237, 27, 47, 0.1),
+        inset 0 1px 0 rgba(255, 255, 255, 0.08) !important;
+    backdrop-filter: blur(26px) saturate(115%) !important;
+    -webkit-backdrop-filter: blur(26px) saturate(115%) !important;
+    overflow-x: hidden !important;
+    overflow-y: auto !important;
+    transform: none !important;
+    animation: tr-preset-slide 240ms cubic-bezier(0.16, 0.78, 0.2, 1);
+    scrollbar-width: thin;
+    scrollbar-color: rgba(237, 27, 47, 0.55) rgba(255, 255, 255, 0.04);
+}
+
+@keyframes tr-preset-slide {
+    from {
+        opacity: 0;
+        transform: translateX(-18px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* Fullscreen Standalone Website Pages for the 8 sections (Characters, Backgrounds, Lorebooks, API, etc.) */
+body:not(.tr-home-open) #top-settings-holder > .drawer:not(#ai-config-button) > .drawer-content.openDrawer {
+    position: fixed !important;
+    top: 76px !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    left: 0 !important;
+    z-index: 4005 !important;
+    display: block !important;
+    box-sizing: border-box;
+    width: 100vw !important;
+    width: 100dvw !important;
+    min-width: 100dvw !important;
+    max-width: none !important;
+    height: calc(100vh - 76px) !important;
+    height: calc(100dvh - 76px) !important;
+    min-height: calc(100dvh - 76px) !important;
+    max-height: none !important;
+    margin: 0 !important;
+    padding: clamp(28px, 3.5vw, 52px) max(clamp(28px, 6vw, 96px), calc((100dvw - 1280px) / 2)) !important;
+    color: var(--tr-white) !important;
+    background:
+        radial-gradient(circle at 50% 0%, rgba(177, 15, 31, 0.1), transparent 55%),
+        #070709 !important;
+    border: 0 !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    overflow-x: hidden !important;
+    overflow-y: auto !important;
+    transform: none !important;
+    animation: tr-page-fade 240ms ease;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(237, 27, 47, 0.55) rgba(255, 255, 255, 0.04);
+}
+
+body:not(.tr-home-open) #top-settings-holder > .drawer > .drawer-content.openDrawer::before {
+    display: none;
+}
+
+@keyframes tr-page-fade {
+    from {
+        transform: translateY(6px);
+    }
+    to {
+        transform: translateY(0);
+    }
+}
+
+body:not(.tr-home-open) #top-settings-holder > .drawer > .drawer-content.openDrawer :is(input, textarea, select, .text_pole) {
+    border-color: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+body:not(.tr-home-open) #top-settings-holder > .drawer > .drawer-content.openDrawer :is(input, textarea, select, .text_pole):focus {
+    border-color: rgba(237, 27, 47, 0.66);
+    box-shadow: 0 0 0 1px rgba(237, 27, 47, 0.18);
+    outline: none;
+}
+
+body:not(.tr-home-open) #top-settings-holder > .drawer > .drawer-content.openDrawer .menu_button {
+    border-color: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    background-color: rgba(255, 255, 255, 0.045);
+}
+
+body:not(.tr-home-open) #top-settings-holder > .drawer > .drawer-content.openDrawer .menu_button:hover {
+    color: var(--tr-white);
+    border-color: rgba(237, 27, 47, 0.58);
+    background-color: rgba(237, 27, 47, 0.14);
+}
+
+@keyframes tr-drawer-pop {
+    from {
+        opacity: 0;
+        transform: translate(-50%, -46%) scale(0.96);
+    }
+
+    to {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
+    }
+}
+
+body:not(.tr-home-open) #top-bar {
+    display: none !important;
+}
+
+/* Recent chats become a horizontal game-style character rail. */
+.welcomePanel .welcomeRecent {
+    position: relative;
+    width: 100%;
+    padding: 0 42px;
+}
+
+.welcomePanel .welcomeRecent .recentChatList {
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+    gap: 14px;
+    width: 100%;
+    padding: 8px 2px 14px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-behavior: smooth;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    overscroll-behavior-inline: contain;
+}
+
+.welcomePanel .welcomeRecent .recentChatList::-webkit-scrollbar {
+    display: none;
+}
+
+.welcomePanel .welcomeRecent .recentChat {
+    position: relative;
+    display: block;
+    flex: 0 0 clamp(180px, 19vw, 245px);
+    width: clamp(180px, 19vw, 245px);
+    aspect-ratio: 0.68;
+    min-height: 270px;
+    padding: 0;
+    overflow: hidden;
+    color: #f4f1ee;
+    background: #080708;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 18px;
+    box-shadow: 0 14px 34px rgba(0, 0, 0, 0.48);
+    scroll-snap-align: start;
+    isolation: isolate;
+    transition: border-color 220ms ease, transform 220ms ease, box-shadow 220ms ease;
+}
+
+.welcomePanel .welcomeRecent .recentChat:hover {
+    background: #080708;
+    border-color: rgba(237, 27, 47, 0.65);
+    box-shadow: 0 18px 42px rgba(0, 0, 0, 0.58), 0 0 18px rgba(237, 27, 47, 0.14);
+    transform: translateY(-5px);
+}
+
+.welcomePanel .welcomeRecent .recentChat::after {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background: linear-gradient(180deg, transparent 35%, rgba(2, 2, 3, 0.45) 58%, rgba(2, 2, 3, 0.98) 100%);
+    content: '';
+    pointer-events: none;
+}
+
+.welcomePanel .welcomeRecent .recentChat .avatar {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    display: block !important;
+    width: 100% !important;
+    height: 100% !important;
+    margin: 0;
+    border: 0;
+    border-radius: 0;
+}
+
+.welcomePanel .welcomeRecent .recentChat .avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center top;
+    border-radius: 0;
+    filter: saturate(0.76) contrast(1.06) brightness(0.76);
+    transition: filter 220ms ease, transform 500ms ease;
+}
+
+.welcomePanel .welcomeRecent .recentChat:hover .avatar img {
+    filter: saturate(0.92) contrast(1.06) brightness(0.9);
+    transform: scale(1.035);
+}
+
+.welcomePanel .welcomeRecent .recentChat .recentChatInfo {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    box-sizing: border-box;
+    min-height: 42%;
+    padding: 18px 15px 14px;
+    overflow: hidden;
+}
+
+.welcomePanel .welcomeRecent .recentChat .chatNameContainer {
+    display: block;
+    font-family: var(--tr-font-display);
+}
+
+.welcomePanel .welcomeRecent .recentChat .chatName {
+    display: block;
+    color: #fff;
+    font-size: clamp(15px, 1.15vw, 19px);
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    line-height: 1.15;
+    text-transform: uppercase;
+}
+
+.welcomePanel .welcomeRecent .recentChat .chatName > span {
+    display: none;
+}
+
+.welcomePanel .welcomeRecent .recentChat .chatDate {
+    display: block;
+    margin-top: 5px;
+    color: rgba(255, 255, 255, 0.52);
+    font: 9px/1.2 'Share Tech Mono', monospace;
+    letter-spacing: 0.08em;
+}
+
+.welcomePanel .welcomeRecent .recentChat .chatActions {
+    position: absolute;
+    top: 9px;
+    right: 8px;
+    display: flex;
+    gap: 3px;
+    opacity: 0;
+    transform: translateY(-5px);
+    transition: opacity 180ms ease, transform 180ms ease;
+}
+
+.welcomePanel .welcomeRecent .recentChat:hover .chatActions,
+.welcomePanel .welcomeRecent .recentChat:focus-within .chatActions {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.welcomePanel .welcomeRecent .recentChat .chatActions button {
+    width: 25px;
+    height: 25px;
+    padding: 0;
+    color: #ddd;
+    background: rgba(0, 0, 0, 0.68);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.welcomePanel .welcomeRecent .recentChat .chatMessageContainer {
+    display: block;
+    margin-top: 10px;
+    padding-top: 9px;
+    border-top: 1px solid rgba(237, 27, 47, 0.42);
+}
+
+.welcomePanel .welcomeRecent .recentChat .chatMessage {
+    display: -webkit-box;
+    color: rgba(245, 242, 237, 0.72);
+    font: 10px/1.4 'Share Tech Mono', monospace;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    line-clamp: 3;
+    overflow: hidden;
+}
+
+.welcomePanel .welcomeRecent .recentChat .chatStats {
+    display: none;
+}
+
+.welcomePanel .welcomeRecent .recentChatPinned {
+    top: 8px;
+    left: 8px;
+    z-index: 3;
+    display: grid;
+    place-items: center;
+    width: 22px;
+    height: 22px;
+    color: var(--tr-red-bright);
+    background: rgba(0, 0, 0, 0.7);
+    border: 1px solid rgba(237, 27, 47, 0.5);
+}
+
+.welcomePanel .welcomeRecent .showMoreChats {
+    flex: 0 0 42px;
+    align-self: stretch;
+    border-radius: 0;
+}
+
+.tr-chat-rail-control {
+    position: absolute;
+    top: 50%;
+    z-index: 5;
+    display: grid;
+    place-items: center;
+    width: 32px;
+    height: 72px;
+    padding: 0;
+    color: #a9a5a5;
+    background: rgba(7, 6, 8, 0.82);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 0;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.38);
+    cursor: pointer;
+    transform: translateY(-50%);
+    transition: color 180ms ease, border-color 180ms ease, background 180ms ease;
+}
+
+.tr-chat-rail-control:hover {
+    color: var(--tr-red-bright);
+    background: rgba(20, 7, 9, 0.9);
+    border-color: rgba(237, 27, 47, 0.7);
+}
+
+.tr-chat-rail-previous {
+    left: 2px;
+}
+
+.tr-chat-rail-next {
+    right: 2px;
+}
+
+body:not(.tr-home-open) #sheld {
+    top: 0;
+    height: 100vh;
+    height: 100dvh;
+    max-height: 100dvh;
+}
+
+/* Combine Ouroboros text colors with Agat's frosted chat treatment. */
+body:not(.tr-home-open) #chat {
+    background: transparent !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+}
+
+body:not(.tr-home-open) #chat .mes_block {
+    background: transparent !important;
+}
+
+body:not(.tr-home-open) #chat .mes .mes_block .mes_text {
+    position: relative;
+    isolation: isolate;
+    display: flow-root;
+    box-sizing: border-box;
+    margin: 10px 0;
+    padding: 26px max(42px, var(--mes-right-spacing)) 34px 30px !important;
+    color: var(--tr-white);
+    background: rgba(65, 7, 14, 0.34) !important;
+    border: 0;
+    border-radius: 18px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(5px) saturate(82%);
+    -webkit-backdrop-filter: blur(5px) saturate(82%);
+    overflow: hidden;
+}
+
+body:not(.tr-home-open) #chat .mes_text::before {
+    position: absolute;
+    inset: 12px;
+    z-index: -1;
+    background: rgba(54, 4, 11, 0.12);
+    border-radius: 12px;
+    backdrop-filter: blur(14px) saturate(78%);
+    -webkit-backdrop-filter: blur(14px) saturate(78%);
+    -webkit-mask-image: radial-gradient(ellipse at center, #000 42%, rgba(0, 0, 0, 0.72) 67%, transparent 100%);
+    mask-image: radial-gradient(ellipse at center, #000 42%, rgba(0, 0, 0, 0.72) 67%, transparent 100%);
+    content: '';
+    pointer-events: none;
+}
+
+body:not(.tr-home-open) #chat .mes_text :is(em, i) {
+    color: rgb(145, 145, 145) !important;
+}
+
+body:not(.tr-home-open) #chat .mes_text q,
+body:not(.tr-home-open) #chat .mes_text q::before,
+body:not(.tr-home-open) #chat .mes_text q::after,
+body:not(.tr-home-open) #chat .mes_text q :is(em, i) {
+    color: rgb(220, 220, 210) !important;
+}
+
+body:not(.tr-home-open) #chat .mes_reasoning {
+    padding: 15px;
+    margin-top: 10px;
+    background: rgba(255, 255, 255, 0.1) !important;
+    border: 0;
+    border-radius: 14px;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+body:not(.tr-home-open) #chat .tr-message-portrait {
+    float: left;
+    box-sizing: border-box;
+    width: clamp(210px, 29%, 360px);
+    max-width: calc(50% - 14px);
+    margin: 8px 24px 16px 0;
+    overflow: hidden;
+    padding: 4px;
+    border: 1px solid rgba(177, 15, 31, 0.58);
+    border-radius: 14px;
+    background: rgba(0, 0, 0, 0.24);
+    box-shadow:
+        0 12px 28px rgba(0, 0, 0, 0.32),
+        0 0 12px rgba(177, 15, 31, 0.12),
+        inset 0 0 0 1px rgba(245, 242, 237, 0.05);
+    shape-outside: inset(0 round 14px);
+}
+
+body:not(.tr-home-open) #chat .tr-message-portrait img {
+    display: block;
+    width: 100%;
+    max-height: 48vh;
+    object-fit: cover;
+    object-position: center top;
+    border-radius: 9px;
+}
+
+/* Minimalist floating glass composer (replaces Ouroboros/native input bar). */
+body:not(.tr-home-open) #form_sheld {
+    margin: 0 auto 14px !important;
+    padding: 0 8px;
+    box-sizing: border-box;
+}
+
+body:not(.tr-home-open) #send_form {
+    position: relative !important;
+    box-sizing: border-box;
+    padding: 10px 12px !important;
+    background: linear-gradient(160deg, rgba(16, 13, 15, 0.84), rgba(8, 8, 10, 0.9)) !important;
+    border: 1px solid rgba(255, 255, 255, 0.09) !important;
+    border-radius: 22px !important;
+    box-shadow:
+        0 18px 44px rgba(0, 0, 0, 0.55),
+        inset 0 1px 0 rgba(255, 255, 255, 0.07) !important;
+    backdrop-filter: blur(22px) saturate(110%) !important;
+    -webkit-backdrop-filter: blur(22px) saturate(110%) !important;
+    outline: none !important;
+    transition: border-color 220ms ease, box-shadow 220ms ease, background 220ms ease;
+}
+
+body:not(.tr-home-open) #send_form:has(#send_textarea:focus-visible) {
+    border-color: rgba(237, 27, 47, 0.48) !important;
+    box-shadow:
+        0 20px 48px rgba(0, 0, 0, 0.65),
+        0 0 24px rgba(237, 27, 47, 0.14),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1) !important;
+    outline: none !important;
+}
+
+body:not(.tr-home-open) #nonQRFormItems {
+    display: flex;
+    align-items: flex-end;
+    column-gap: 8px;
+    width: 100%;
+    min-height: 40px;
+}
+
+body:not(.tr-home-open) #leftSendForm,
+body:not(.tr-home-open) #rightSendForm {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: 0 !important;
+}
+
+body:not(.tr-home-open) #leftSendForm > div,
+body:not(.tr-home-open) #rightSendForm > div:not(#send_but) {
+    width: 34px !important;
+    height: 34px !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    color: var(--tr-muted) !important;
+    font-size: 14px !important;
+    background: transparent !important;
+    border: 1px solid transparent !important;
+    border-radius: 50% !important;
+    opacity: 0.78 !important;
+    filter: none !important;
+    text-shadow: none !important;
+    transition: color 180ms ease, background 180ms ease, border-color 180ms ease, opacity 180ms ease, transform 180ms ease;
+}
+
+body:not(.tr-home-open) #leftSendForm > div:hover,
+body:not(.tr-home-open) #rightSendForm > div:not(#send_but):hover {
+    color: var(--tr-white) !important;
+    background: rgba(255, 255, 255, 0.06) !important;
+    border-color: rgba(255, 255, 255, 0.12) !important;
+    opacity: 1 !important;
+    filter: none !important;
+}
+
+body:not(.tr-home-open) #send_textarea {
+    min-height: 36px !important;
+    padding: 7px 6px !important;
+    color: var(--tr-white) !important;
+    font-size: 0.96rem !important;
+    line-height: 1.48 !important;
+    background: transparent !important;
+    border-top-width: 0 !important;
+    text-shadow: none !important;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(237, 27, 47, 0.45) transparent;
+}
+
+body:not(.tr-home-open) #send_textarea::placeholder {
+    color: rgba(133, 128, 124, 0.68) !important;
+    text-shadow: none !important;
+}
+
+body:not(.tr-home-open) #send_but {
+    width: 36px !important;
+    height: 36px !important;
+    margin: 0 0 0 2px !important;
+    padding: 0 !important;
+    color: var(--tr-white) !important;
+    font-size: 13px !important;
+    background: linear-gradient(135deg, var(--tr-red-bright), var(--tr-red)) !important;
+    border: 1px solid rgba(255, 255, 255, 0.18) !important;
+    border-radius: 50% !important;
+    box-shadow:
+        0 4px 14px rgba(177, 15, 31, 0.45),
+        0 0 16px rgba(237, 27, 47, 0.25) !important;
+    opacity: 1 !important;
+    transition: transform 180ms ease, box-shadow 180ms ease, filter 180ms ease;
+}
+
+body:not(.tr-home-open) #send_but:hover {
+    transform: translateY(-1px) scale(1.04);
+    box-shadow:
+        0 6px 18px rgba(237, 27, 47, 0.6),
+        0 0 22px rgba(237, 27, 47, 0.42) !important;
+    filter: brightness(1.08) !important;
+}
+
+body:not(.tr-home-open) #send_form .mes_stop {
+    color: var(--tr-red-bright) !important;
+    background: rgba(237, 27, 47, 0.12) !important;
+    border: 1px solid rgba(237, 27, 47, 0.45) !important;
+}
+
+body:not(.tr-home-open) :is(#options, #extensionsMenu) {
+    background: rgba(12, 10, 12, 0.92) !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    border-radius: 16px !important;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.65), 0 0 20px rgba(237, 27, 47, 0.08) !important;
+    backdrop-filter: blur(22px) !important;
+    -webkit-backdrop-filter: blur(22px) !important;
+    padding: 6px !important;
+}
+
+body:not(.tr-home-open) .options-content {
+    border: 0 !important;
+}
+
+body:not(.tr-home-open) :is(.options-content a, #extensionsMenu > .extension_container > div, #extensionsMenu > div:not(.extension_container)) {
+    padding: 7px 10px !important;
+    border-radius: 10px !important;
+    opacity: 0.78 !important;
+    transition: background 150ms ease, color 150ms ease, opacity 150ms ease;
+}
+
+body:not(.tr-home-open) :is(.options-content a, #extensionsMenu > .extension_container > div, #extensionsMenu > div:not(.extension_container)):hover {
+    color: var(--tr-white) !important;
+    background: rgba(237, 27, 47, 0.14) !important;
+    opacity: 1 !important;
+}
+
+/* RPG Companion reads the rail's height as if it were the old horizontal top bar. */
+@media (min-width: 1001px) {
+    body:not(.tr-home-open) #rpg-thought-panel {
+        top: 58px !important;
+    }
+
+    body:not(.tr-home-open) #rpg-thought-panel.rpg-thought-panel-left {
+        left: 68px !important;
+        right: auto !important;
+        box-sizing: border-box;
+        padding: 6px;
+        background: rgba(10, 9, 12, 0.78);
+        border: 1px solid rgba(237, 27, 47, 0.55);
+        border-radius: 7px;
+        box-shadow: 0 10px 32px rgba(0, 0, 0, 0.42), 0 0 12px rgba(237, 27, 47, 0.1);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+    }
+
+    body:not(.tr-home-open) #rpg-thought-panel.rpg-thought-panel-right {
+        right: 14px !important;
+        left: auto !important;
+    }
+
+    body:not(.tr-home-open) #rpg-thought-panel.rpg-thought-panel-left .rpg-thought-bubble {
+        border-width: 1px;
+        border-radius: 4px;
+    }
+
+    body:not(.tr-home-open) #rpg-thought-panel.rpg-thought-panel-left .rpg-thought-circles {
+        display: none;
+    }
+}
+
+@keyframes tr-status-pulse {
+    50% { opacity: 0.3; }
+}
+
+@media (max-width: 1120px) {
+    .tr-home-content {
+        grid-template-columns: 1fr 1fr;
+        gap: 28px;
+    }
+
+    .tr-title-block {
+        grid-column: 1 / -1;
+        order: -1;
+        margin-bottom: 12px;
+    }
+}
+
+@media (max-width: 800px) {
+    #tr-home {
+        overflow-y: auto;
+        padding: 20px;
+    }
+
+    .tr-home-content {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        gap: 32px;
+        padding: 28px 0;
+    }
+
+    .tr-title-block,
+    .tr-wing {
+        position: relative;
+        inset: auto;
+        width: 100%;
+    }
+
+    .tr-title-block h1 {
+        font-size: clamp(32px, 9.5vw, 56px);
+    }
+
+    .tr-subtitle {
+        width: 100%;
+        margin-top: 18px;
+        box-sizing: border-box;
+    }
+
+    .tr-menu,
+    .tr-system-panel {
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .tr-menu-label {
+        font-size: clamp(13px, 3.6vw, 15px);
+    }
+
+    #tr-home-button {
+        top: 10px;
+        left: 10px;
+        width: 38px;
+        height: 38px;
+    }
+
+    body:not(.tr-home-open) #top-settings-holder {
+        top: 56px !important;
+        left: 10px !important;
+        width: 38px !important;
+    }
+
+    body:not(.tr-home-open) #top-settings-holder > #ai-config-button,
+    body:not(.tr-home-open) #top-settings-holder > #ai-config-button > .drawer-toggle {
+        width: 38px;
+        height: 38px;
+        min-height: 38px;
+    }
+
+    body:not(.tr-home-open) #top-settings-holder > #ai-config-button > #left-nav-panel.openDrawer {
+        top: 10px !important;
+        bottom: 10px !important;
+        left: 56px !important;
+        width: calc(100dvw - 66px) !important;
+        min-width: 0 !important;
+        max-width: calc(100dvw - 66px) !important;
+        height: calc(100dvh - 20px) !important;
+        max-height: calc(100dvh - 20px) !important;
+        padding: 16px 14px !important;
+    }
+
+    #tr-page-bar {
+        height: 64px;
+        padding: 0 14px;
+        gap: 12px;
+    }
+
+    .tr-page-heading {
+        display: none;
+    }
+
+    .tr-back-home-btn,
+    .tr-to-chat-btn {
+        height: 34px;
+        padding: 0 12px;
+        font-size: 10px;
+    }
+
+    body:not(.tr-home-open) #top-settings-holder > .drawer:not(#ai-config-button) > .drawer-content.openDrawer {
+        top: 64px !important;
+        right: 0 !important;
+        bottom: 0 !important;
+        left: 0 !important;
+        width: 100dvw !important;
+        max-width: none !important;
+        height: calc(100dvh - 64px) !important;
+        max-height: none !important;
+        margin: 0 !important;
+        padding: 20px 16px !important;
+        transform: none !important;
+    }
+
+    .welcomePanel .welcomeRecent {
+        padding: 0 34px;
+    }
+
+    .welcomePanel .welcomeRecent .recentChat {
+        flex-basis: min(68vw, 230px);
+        width: min(68vw, 230px);
+    }
+
+    .tr-chat-rail-control {
+        width: 28px;
+        height: 60px;
+    }
+
+    body:not(.tr-home-open) #chat .mes .mes_block .mes_text {
+        padding: 20px max(26px, var(--mes-right-spacing)) 26px 22px !important;
+        border-radius: 14px;
+    }
+
+    body:not(.tr-home-open) #chat .tr-message-portrait {
+        float: none;
+        width: min(88%, 340px);
+        max-width: 100%;
+        margin: 14px auto 18px;
+        shape-outside: none;
+    }
+}
+
+@media (max-width: 480px) {
+    .tr-kicker,
+    .tr-home-footer > span:first-child {
+        display: none;
+    }
+
+    .tr-home-header,
+    .tr-home-footer {
+        justify-content: flex-end;
+    }
+
+    .tr-home-content {
+        gap: 54px;
+        padding: 38px 0;
+    }
+
+    .tr-title-block h1 {
+        font-size: clamp(38px, 12vw, 58px);
+        line-height: 0.9;
+    }
+
+    .tr-menu-item {
+        grid-template-columns: 28px 1fr;
+        min-height: 28px;
+    }
+}
+
+@media (hover: none) {
+    .tr-reveal {
+        opacity: 0.72;
+        filter: brightness(0.74) contrast(1.05) saturate(0.9);
+        -webkit-mask-image: linear-gradient(#000, #000);
+        mask-image: linear-gradient(#000, #000);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    #tr-home,
+    .tr-menu-item::before,
+    .tr-menu-item::after,
+    .tr-menu-letter,
+    #tr-home-button span {
+        transition: none;
+    }
+
+    .tr-status i {
+        animation: none;
+    }
+
+    .tr-reveal {
+        display: none;
+    }
+
+    body:not(.tr-home-open) #top-settings-holder > .drawer > .drawer-content.openDrawer {
+        animation: none;
+    }
+}
