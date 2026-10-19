@@ -1,0 +1,12 @@
+{
+    "display_name": "Tavern Redesign",
+    "loading_order": 1,
+    "requires": [],
+    "optional": [],
+    "js": "index.js",
+    "css": "style.css",
+    "author": "SheyVill",
+    "version": "1.0.0",
+    "homePage": "https://github.com/SheyVill/UI-for-ST",
+    "auto_update": true
+}
